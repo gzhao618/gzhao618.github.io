@@ -188,13 +188,13 @@ const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqF
 let projectRankingOutput = "";
 
 // Function to parse Google spreadsheet csv into HTML table
-async function parseSpreadsheet(url) {
+async function parseSpreadsheet(url, columnName) {
   // Asynchronous request to retrieve spreadsheet from URL
   let body = await request.get(url);
 
   // Extracts the needed parts of CSV and parses into array
   let arr = CSVToArray(body)
-  let grossSalesIndex = arr[0].indexOf('Total gross sales');
+  let grossSalesIndex = arr[0].indexOf(columnName);
   let rankings = [];
 
   arr.forEach(function (element, index) {
@@ -249,7 +249,7 @@ function CSVToArray(strData, strDelimiter){
 
 async function printOutput() {
   // Asynchronous request to retrieve spreadsheet from URL
-  await parseSpreadsheet(projectRankingLink);
+  await parseSpreadsheet(projectRankingLink, 'Total gross sales');
 
   console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo);
 }
