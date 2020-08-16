@@ -1,0 +1,22 @@
+{
+  "name": "gzhao618.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "update-rankings.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzhao618/gzhao618.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gzhao618/gzhao618.github.io/issues"
+  },
+  "homepage": "https://github.com/gzhao618/gzhao618.github.io#readme",
+  "dependencies": {
+    "request-promise": "^4.2.6"
+  }
+}
