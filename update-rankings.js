@@ -1,4 +1,4 @@
-let output = `
+let outputSegmentOne = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,97 +92,9 @@ let output = `
 						
 						<table>
 							<tbody>
-								
-<tr class="row100 body">
-<td class="cell100 column1">1</td>
-<td class="cell100 column2">CompanyABC</td>
-<td class="cell100 column3">$5000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">2</td>
-<td class="cell100 column2">CompanyDEF</td>
-<td class="cell100 column3">$4000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">3</td>
-<td class="cell100 column2">CompanyGHI</td>
-<td class="cell100 column3">$3000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">4</td>
-<td class="cell100 column2">CompanyJKL</td>
-<td class="cell100 column3">$2750</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">5</td>
-<td class="cell100 column2">CompanyMNO</td>
-<td class="cell100 column3">$2500</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">6</td>
-<td class="cell100 column2">CompanyPQR</td>
-<td class="cell100 column3">$2250</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">7</td>
-<td class="cell100 column2">CompanySTU</td>
-<td class="cell100 column3">$2000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">8</td>
-<td class="cell100 column2">CompanyVWX</td>
-<td class="cell100 column3">$1750</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">9</td>
-<td class="cell100 column2">CompanyXYZ</td>
-<td class="cell100 column3">$1500</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">10</td>
-<td class="cell100 column2">ABCEnterprises</td>
-<td class="cell100 column3">$1250</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">11</td>
-<td class="cell100 column2">DEFEnterprises</td>
-<td class="cell100 column3">$1000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">12</td>
-<td class="cell100 column2">GHIEnterprises</td>
-<td class="cell100 column3">$900</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">13</td>
-<td class="cell100 column2">JKLEnterprises</td>
-<td class="cell100 column3">$800</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">14</td>
-<td class="cell100 column2">MNOEnterprises</td>
-<td class="cell100 column3">$700</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">15</td>
-<td class="cell100 column2">PQREnterprises</td>
-<td class="cell100 column3">$600</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">16</td>
-<td class="cell100 column2">STUEnterprises</td>
-<td class="cell100 column3">$500</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">17</td>
-<td class="cell100 column2">VWXEnterprises</td>
-<td class="cell100 column3">$400</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">18</td>
-<td class="cell100 column2">XYZEnterprises</td>
-<td class="cell100 column3">$300</td>
-</tr>
+`
+
+let outputSegmentTwo = `
 							</tbody>
 						</table>
 					</div>
@@ -271,4 +183,75 @@ let output = `
 </html>
 `;
 
-console.log(output);
+var request = require('request-promise');
+const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqF6Bm05JJiIXveVCQEqIU9CkHVpcNf4f0A7kIc_DdxLqa5mt09Cc1b8mc4lTHbIFUaG43w2Ir30hx/pub?gid=0&single=true&output=csv';
+let projectRankingOutput = "";
+
+// Function to parse Google spreadsheet csv into HTML table
+async function parseSpreadsheet(url) {
+  // Asynchronous request to retrieve spreadsheet from URL
+  let body = await request.get(url);
+
+  // Extracts the needed parts of CSV and parses into array
+  let arr = CSVToArray(body)
+  let grossSalesIndex = arr[0].indexOf('Total gross sales');
+  let rankings = [];
+
+  arr.forEach(function (element, index) {
+    if (index > 0) rankings.push([element[0], parseInt(element[grossSalesIndex])]);
+  })
+
+  // Sorts the array based on 'Total gross sales'
+  rankings.sort(function (el1, el2) {
+    return el2[1] - el1[1];
+  });
+
+  // Generates the HTML output
+  let webOutput = "";
+  rankings.forEach(function (element, index) {
+    webOutput = webOutput + `<tr class="row100 body">
+<td class="cell100 column1">${index+1}</td>
+<td class="cell100 column2">${element[0]}</td>
+<td class="cell100 column3">$${element[1]}</td>
+</tr>
+`
+  })
+
+  projectRankingOutput = webOutput;
+  return;
+}
+
+// Parses Google spreadsheet into array
+function CSVToArray(strData, strDelimiter){
+  strDelimiter = (strDelimiter || ",");
+
+  const objPattern = new RegExp(("(\\" + strDelimiter + "|\\r?\\n|\\r|^)" + "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" + "([^\"\\" + strDelimiter + "\\r\\n]*))"), "gi");
+
+  let arrData = [[]];
+  let arrMatches = null;
+  while (arrMatches = objPattern.exec( strData )){
+    let strMatchedDelimiter = arrMatches[1];
+    if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter){
+      arrData.push( [] );
+    }
+
+    let strMatchedValue;
+    if (arrMatches[2]){
+      strMatchedValue = arrMatches[2].replace(new RegExp( "\"\"", "g" ), "\"");
+    } else {
+      strMatchedValue = arrMatches[3];
+    }
+
+    arrData[arrData.length - 1].push( strMatchedValue );
+  }
+  return(arrData);
+}
+
+async function printOutput() {
+  // Asynchronous request to retrieve spreadsheet from URL
+  await parseSpreadsheet(projectRankingLink);
+
+  console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo);
+}
+
+printOutput();
