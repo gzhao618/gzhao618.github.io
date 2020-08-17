@@ -1,4 +1,4 @@
-name: Auto-update CHEO project ranking leaderboards
+name: Auto-update CHEO website ranking leaderboards
 
 on:
   workflow_dispatch:
@@ -16,9 +16,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - uses: request/request-promise
     - name: Update overallranking.html page
       run: |
+        npm install request --save
         npm install request-promise --save
         node update-rankings.js > overallranking.html
     - name: Commit changes & deploy
