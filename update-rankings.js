@@ -81,7 +81,7 @@ let outputSegmentOne = `
 								<tr class="row100 head">
 									<th class="cell100 column1">Ranking</th>
 									<th class="cell100 column2">Project</th>
-									<th class="cell100 column3">Contributed Amount</th>
+									<th class="cell100 column3">Contributed</th>
 									
 								</tr>
 							</thead>
@@ -114,7 +114,7 @@ let outputSegmentTwo = `
 								<tr class="row100 head">
 									<th class="cell100 column1">Ranking</th>
 									<th class="cell100 column2">Company</th>
-									<th class="cell100 column3">Contributed Amount</th>
+									<th class="cell100 column3">Contributed</th>
 									
 								</tr>
 							</thead>
