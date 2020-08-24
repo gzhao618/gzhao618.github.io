@@ -249,7 +249,7 @@ function CSVToArray(strData, strDelimiter){
 
 async function printOutput() {
   // Asynchronous request to retrieve spreadsheet from URL
-  await parseSpreadsheet(projectRankingLink, 'Total sales');
+  await parseSpreadsheet(projectRankingLink, 'Total Sales');
 
   console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo);
 }
