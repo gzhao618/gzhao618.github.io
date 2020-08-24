@@ -71,42 +71,12 @@ let outputSegmentOne = `
 
 
 	<div class="limiter-left">
-		<div class="container-table100">
-			<div class="wrap-table100">
-			<h1>Project Rankings</h1>
-				<div class="table100 ver1 m-b-110">
-					<div class="table100-head">
-						<table>
-							<thead>
-								<tr class="row100 head">
-									<th class="cell100 column1">Ranking</th>
-									<th class="cell100 column2">Project</th>
-									<th class="cell100 column3">Contributed</th>
-									
-								</tr>
-							</thead>
-						</table>
-					</div>
-
-					<div class="table100-body js-pscroll">
-						
-						<table>
-							<tbody>
 `
-
-let outputSegmentTwo = `
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
-	<div class="limiter-right">
+let outputSegmentOpenTable = `
 		<div class="container-table100">
 			<div class="wrap-table100">
-			<h1>Highest Bidder</h1>
+`
+let outputSegmentInBetween = `
 				<div class="table100 ver1 m-b-110">
 					<div class="table100-head">
 						<table>
@@ -122,17 +92,20 @@ let outputSegmentTwo = `
 					</div>
 
 					<div class="table100-body js-pscroll">
+						
 						<table>
 							<tbody>
 `
+let outputSegmentCloseTable = `
+                            </tbody>                                                                                                                                                                                                       </table>                                                                                                                                                                                                       </div>                                                                                                                                                                                                         </div>                                                                                                                                                                                                         </div>                                                                                                                                                                                                         </div>
+`
+
+let outputSegmentTwo = `
+	</div>
+	<div class="limiter-right">
+`
 
 let outputSegmentThree = `
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 		<div class="footer">
 			<div class="socials">
@@ -147,8 +120,15 @@ let outputSegmentThree = `
 `;
 
 var request = require('request-promise');
-const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqF6Bm05JJiIXveVCQEqIU9CkHVpcNf4f0A7kIc_DdxLqa5mt09Cc1b8mc4lTHbIFUaG43w2Ir30hx/pub?gid=0&single=true&output=csv';
-const highestBidderLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRucKJWfwfVZ5pGJcRv_6SQdGwT_H6AvH8D3fdPROh2dl8sEj8ZbspM-2s_azCeCTLsVQvmryRptab0/pub?output=csv';
+const leftSheets = [ ['OPMPC 1st & 2nd Refresh', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6vVRGew-qXieeoKkonEM14GJ65SA4le_aL29kNh5y9jMPLIUe0FMX2yrFGjlCGYJdg0t9Lv8NSRFX/pub?output=csv'],
+['Valour Parking Garage', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMu-skVSfNgfmRo0qvXhfT-AxhEqVhJwGkAbZsX4TLm62adwGMVoNjj0RscsyNxOeyAiYiq6c2yMww/pub?output=csv'],
+['Confederation Café', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQC_7ghwE7DsQDT5UftBxAkWQstrc0fod6wfanPy-QzvFN-F5mApOPJE50M3M5XaEp3APSZzYiQX3wu/pub?output=csv'],
+['Visitor Welcome Centre Complex', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR3DFMmfzXJuqXLYZEmbOLK2hZUUzrY19c1h6p-3TySXMFMqjFwD8bWTCx0YkIf7bUhFAR9v8KngrNb/pub?output=csv'] ]; 
+
+const rightSheets = [ ['Hope ID ID Desk', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSNvaZM1FKrOiLVGHG2_TQsgTCdZX6szBs_tCB6VfNdBPpnHTOgKDMUBU_iyjqnKzOo2PqfHYlohYn9/pub?output=csv'],
+['Valour Flooring', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr-KDyAPOEozvufdsPmWnM0lmOEpjeOXrrWW_5l4-w7l5ecX7YJpysgNf4xicRPOTQGSrLfLwHywwl/pub?output=csv'],
+['Boardroom 405', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRBNwXHLe1jYOnoxzspnrp-4KD_-rO_I4w8x4bCzuv3m8bwOTbBrbRcqMp0w-YpNAKZFBNdTyL4fySL/pub?output=csv'],
+['Demo and Abatement', 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHVa7Jyq9--igAMfkG0tpwdemqVJ87TsNTOUlrhTv579fTMRBuZNlWxVSoX68qujf7cXi_V3QH8pAG/pub?output=csv'] ]; 
 
 // Function to parse Google spreadsheet csv into HTML table
 async function parseSpreadsheet(url, columnName) {
@@ -161,7 +141,7 @@ async function parseSpreadsheet(url, columnName) {
   let rankings = [];
 
   arr.forEach(function (element, index) {
-    if (index > 0 && index < arr.length - 1) rankings.push([element[0], parseInt(element[grossSalesIndex])]);
+    if (index > 0) rankings.push([element[0], parseInt(element[grossSalesIndex])]);
   })
 
   // Sorts the array based on 'Total gross sales'
@@ -211,10 +191,31 @@ function CSVToArray(strData, strDelimiter){
 
 async function printOutput() {
   // Asynchronous request to retrieve spreadsheet from URL
-  let projectRankingOutput = await parseSpreadsheet(projectRankingLink, 'Total Sales');
-  let highestBidderOutput = await parseSpreadsheet(highestBidderLink, 'Total Spent');
+  let finalOutput = outputSegmentOne;
 
-  console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo + highestBidderOutput + outputSegmentThree);
+  for (var i=0; i<leftSheets.length; ++i) {
+    finalOutput += outputSegmentOpenTable;
+    let headerOutput = `
+            <h1>${leftSheets[i][0]}</h1>
+`;
+    let tableOutput = await parseSpreadsheet(leftSheets[i][1], 'Total Sales');
+    finalOutput += headerOutput + outputSegmentInBetween + tableOutput + outputSegmentCloseTable;
+  }
+
+  finalOutput += outputSegmentTwo;
+
+  for (var i=0; i<rightSheets.length; ++i) {
+    finalOutput += outputSegmentOpenTable;
+    let headerOutput = `
+            <h1>${rightSheets[i][0]}</h1>
+`;
+    let tableOutput = await parseSpreadsheet(rightSheets[i][1], 'Total Sales');
+    finalOutput += headerOutput + outputSegmentInBetween + tableOutput + outputSegmentCloseTable;
+  }
+  
+  finalOutput += outputSegmentThree;
+
+  console.log(finalOutput);
 }
 
 printOutput();
