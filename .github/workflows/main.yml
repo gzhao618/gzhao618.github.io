@@ -3,7 +3,7 @@ name: Auto-update CHEO website ranking leaderboards
 on:
   workflow_dispatch:
   schedule:
-    - cron: '* * * * *'
+    - cron: '0 * * * *'
 
 jobs:
   build:
