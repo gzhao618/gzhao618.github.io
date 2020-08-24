@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
-    - name: Update overallranking.html page
+    - name: Update overallranking.html page and projects pages
       run: |
         npm install request --save
         npm install request-promise --save

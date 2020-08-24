@@ -107,7 +107,12 @@ let outputSegmentTwo = `
 
 let outputSegmentThree = `
 	</div>
-        <div class="cat-nav-wrap">                                                                                                                                                                                           <div class="cat-nav">                                                                                                                                                                                                    <a href="projects2.html" class="next round">&#8250;</a>                                                                                                                                                              <br><p>1</p>                                                                                                                                                                                                     </div>                                                                                                                                                                                                               </div>
+        <div class="cat-nav-wrap">
+        <div class="cat-nav">
+        <a href="prjects2.html" class="previous round">&#8249;</a>
+        <br><p>3</p>
+        </div>
+        </div>
 		<div class="footer">
 			<div class="socials">
 				<a href="https://www.facebook.com/CHEOkids/" class="fa fa-facebook" target="_blank"></a>
