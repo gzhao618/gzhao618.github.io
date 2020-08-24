@@ -184,7 +184,7 @@ let outputSegmentTwo = `
 `;
 
 var request = require('request-promise');
-const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqF6Bm05JJiIXveVCQEqIU9CkHVpcNf4f0A7kIc_DdxLqa5mt09Cc1b8mc4lTHbIFUaG43w2Ir30hx/pub?gid=0&single=true&output=csv';
+const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaqn8khHgRF5MtEfxcF-OIc_I9W8_ZiYl2Ax_q8H2G7QKsCQhgShVZAyXhyDpchU61skoyLv6YT_Ls/pub?output=csv';
 let projectRankingOutput = "";
 
 // Function to parse Google spreadsheet csv into HTML table
@@ -249,7 +249,7 @@ function CSVToArray(strData, strDelimiter){
 
 async function printOutput() {
   // Asynchronous request to retrieve spreadsheet from URL
-  await parseSpreadsheet(projectRankingLink, 'Total gross sales');
+  await parseSpreadsheet(projectRankingLink, 'Total sales');
 
   console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo);
 }
