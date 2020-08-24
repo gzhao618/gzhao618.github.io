@@ -109,7 +109,7 @@ let outputSegmentThree = `
 	</div>
         <div class="cat-nav-wrap">
         <div class="cat-nav">
-        <a href="prjects2.html" class="previous round">&#8249;</a>
+        <a href="projects2.html" class="previous round">&#8249;</a>
         <br><p>3</p>
         </div>
         </div>
