@@ -123,47 +123,8 @@ let outputSegmentTwo = `
 
 					<div class="table100-body js-pscroll">
 						<table>
-							<tbody>
-<tr class="row100 body">
-<td class="cell100 column1">1</td>
-<td class="cell100 column2">CompanyABC</td>
-<td class="cell100 column3">$5000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">2</td>
-<td class="cell100 column2">CompanyDEF</td>
-<td class="cell100 column3">$4000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">3</td>
-<td class="cell100 column2">CompanyGHI</td>
-<td class="cell100 column3">$3000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">4</td>
-<td class="cell100 column2">CompanyJKL</td>
-<td class="cell100 column3">$2750</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">5</td>
-<td class="cell100 column2">CompanyMNO</td>
-<td class="cell100 column3">$2500</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">6</td>
-<td class="cell100 column2">CompanyPQR</td>
-<td class="cell100 column3">$2250</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">7</td>
-<td class="cell100 column2">CompanySTU</td>
-<td class="cell100 column3">$2000</td>
-</tr>
-<tr class="row100 body">
-<td class="cell100 column1">8</td>
-<td class="cell100 column2">CompanyVWX</td>
-<td class="cell100 column3">$1750</td>
-</tr>
+							<tbody>`;
+let outputSegmentThree = `
 							</tbody>
 						</table>
 					</div>
@@ -185,7 +146,8 @@ let outputSegmentTwo = `
 
 var request = require('request-promise');
 const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaqn8khHgRF5MtEfxcF-OIc_I9W8_ZiYl2Ax_q8H2G7QKsCQhgShVZAyXhyDpchU61skoyLv6YT_Ls/pub?output=csv';
-let projectRankingOutput = "";
+const highestBidderLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRucKJWfwfVZ5pGJcRv_6SQdGwT_H6AvH8D3fdPROh2dl8sEj8ZbspM-2s_azCeCTLsVQvmryRptab0/pub?output=csv';
+
 
 // Function to parse Google spreadsheet csv into HTML table
 async function parseSpreadsheet(url, columnName) {
@@ -217,8 +179,8 @@ async function parseSpreadsheet(url, columnName) {
 `
   })
 
-  projectRankingOutput = webOutput;
-  return;
+  return webOutput;
+  
 }
 
 // Parses Google spreadsheet into array
@@ -249,9 +211,10 @@ function CSVToArray(strData, strDelimiter){
 
 async function printOutput() {
   // Asynchronous request to retrieve spreadsheet from URL
-  await parseSpreadsheet(projectRankingLink, 'Total Sales');
-
-  console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo);
+  
+  let projectRankingOutput = await parseSpreadsheet(projectRankingLink, 'Total Sales');
+  let highestBidderOutput = await parseSpreadsheet(highestBidderLink, 'Total Spent' );
+  console.log(outputSegmentOne + projectRankingOutput + outputSegmentTwo + highestBidderOutput + outputSegmentThree);
 }
 
 printOutput();
