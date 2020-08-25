@@ -147,7 +147,7 @@ let outputSegmentThree = `
 `;
 
 var request = require('request-promise');
-const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQqF6Bm05JJiIXveVCQEqIU9CkHVpcNf4f0A7kIc_DdxLqa5mt09Cc1b8mc4lTHbIFUaG43w2Ir30hx/pub?gid=0&single=true&output=csv';
+const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaqn8khHgRF5MtEfxcF-OIc_I9W8_ZiYl2Ax_q8H2G7QKsCQhgShVZAyXhyDpchU61skoyLv6YT_Ls/pub?output=csv';
 const highestBidderLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRucKJWfwfVZ5pGJcRv_6SQdGwT_H6AvH8D3fdPROh2dl8sEj8ZbspM-2s_azCeCTLsVQvmryRptab0/pub?output=csv';
 
 // Function to parse Google spreadsheet csv into HTML table
