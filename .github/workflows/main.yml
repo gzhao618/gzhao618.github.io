@@ -24,6 +24,7 @@ jobs:
         node update-rankings-projects1.js > projects1.html
         node update-rankings-projects2.js > projects2.html
         node update-rankings-projects3.js > projects3.html
+        node update-rankings-misc.js > miscboard.html
     - name: Commit changes & deploy
       run: |
           git config user.name 'github-actions[bot]'
