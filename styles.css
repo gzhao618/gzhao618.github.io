@@ -131,7 +131,17 @@ html {
 	float: right;
 	width: 50%;
 }
+.rules-right{
+	float: right;
+	width: 50%;
+}
 .board-right img{
+	width: 90%;
+	height: 90%;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+.rules-right img{
 	width: 90%;
 	height: 90%;
 	margin-top: 25%;
