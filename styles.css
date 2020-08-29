@@ -110,9 +110,9 @@ html {
 }
 .rules-left{
   float: left;
-	width: 45%;
+	width: 40%;
 	padding: 3% 5%;
-	margin-left: 50px;
+	margin-left: 10px;
 	margin-top: 40px;
 	margin-bottom: 40px;
 	background: white;
