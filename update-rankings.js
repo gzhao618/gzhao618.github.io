@@ -147,8 +147,8 @@ let outputSegmentThree = `
 `;
 
 var request = require('request-promise');
-const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRaqn8khHgRF5MtEfxcF-OIc_I9W8_ZiYl2Ax_q8H2G7QKsCQhgShVZAyXhyDpchU61skoyLv6YT_Ls/pub?output=csv';
-const highestBidderLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRucKJWfwfVZ5pGJcRv_6SQdGwT_H6AvH8D3fdPROh2dl8sEj8ZbspM-2s_azCeCTLsVQvmryRptab0/pub?output=csv';
+const projectRankingLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQNYROWkxiYmjG04jz7bKctIeM7G-PVn7jp-4Brg_uecNiF5CggFtB-lkNzRTFcpTMBbZCEMFZylvKa/pub?output=csv';
+const highestBidderLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6gDfl-NdkoRRwoyUCCcSQW9k1giI5_oOGm6xIAFkj3FjqTNX37LL_zIoM7czbOIhdGNUX94Vda_O2/pub?output=csv';
 
 // Function to parse Google spreadsheet csv into HTML table
 async function parseSpreadsheet(url, columnName) {
